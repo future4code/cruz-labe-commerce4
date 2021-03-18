@@ -4,13 +4,17 @@ import styled from 'styled-components'
 export class Categorias extends Component {
   render() {
     const categorias = [
-      'Todas Categorias', 'Naves', 'Foguetes', 'Ônibus Espacial'
+      'todas categorias', 'naves', 'foguetes', 'ônibus espacial'
     ]
     
     return (
       <Container >
         <List>
-          {categorias.map(item => <Item key={item}><a href="javascript:void(0)" onClick={this.props.atualizarCategoria}>{item}</a></Item>)}
+          {categorias.map(item => 
+            <Item key={item} name='categoria' onClick={this.props.atualizar}>
+                {item}
+            </Item>
+          )}
         </List>
       </Container>
       

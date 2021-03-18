@@ -5,13 +5,16 @@ import { numeroEhValido, pegarProdutoPeloID } from './utils'
 import {
   Header, Categorias, Pesquisa, Filtro, Produtos, Carrinho
 } from './components'
+//import Button from '@material-ui/core/Button'
+import { Button } from '@material-ui/core'
 
 class App extends Component {
   state = {
     valorMin: 0,
-    valorMax: 0,
-    ordem: 'crescente',
+    valorMax: 1000,
+    ordem: 'recomendados',
     pesquisa: '',
+    categoria: 'todas categorias',
     // itens no carrinho tem apenas ID e quantidade para pegar na listaProdutos
     carrinho: []
   }
@@ -34,10 +37,27 @@ class App extends Component {
 
   // Izi control, funcao para controlar todos os inputs, jsx deve ter name=state
   controlarInput = e => {
-    const {name, value} = e.target
+    let {name, value} = e.target
+    
+    if (name === 'valorMax') {
+      value = Number(value)
+      if (value <= this.state.valorMin) {
+        this.setState({ [name]: value, valorMin: value - 100})
+      }
+    } else if (name === 'valorMin'){
+      value = Number(value)
+      if (value >= this.state.valorMax) {
+        this.setState({ [name]: value, valorMax: value + 100})
+      }
+    }
+
     this.setState({ [name]: value})
   }
-  
+
+  limpaPesquisa = () => {
+    this.setState({valorMin: 0,valorMax: 1000, ordem: "recomendados"})
+  }
+
   adicionarItemCarrinho = id => {
     if(!numeroEhValido(id)) {
       console.warn(`Foi passado ID em formato incorreto, fica esperto!`)
@@ -89,17 +109,16 @@ class App extends Component {
     localStorage.removeItem('carrinho')
   }
 
-  atualizarCategoria = event => {
-   event.preventDefault()
-   this.setState({ categoria: event.target.innerText })
+  atualizarCategoria = e => {
+    e.preventDefault()
+    this.setState({ categoria: e.target.innerText})
   }
-    
-
+  
   render () {
-    let {valorMin, valorMax, ordem, pesquisa} = this.state
+    let {valorMin, valorMax, ordem, pesquisa, categoria} = this.state
 
     let produtosFiltrados = listaProdutos
-
+    
     if (valorMin || valorMax) {
       valorMax = valorMax || Infinity
       produtosFiltrados = produtosFiltrados.filter(produto =>
@@ -107,9 +126,11 @@ class App extends Component {
       )
     }
 
-    // if(categoria) {
-
-    // }
+    if(categoria !== 'todas categorias') {
+      produtosFiltrados = produtosFiltrados.filter(produto =>
+        produto.categoria.toLowerCase() === categoria
+      )
+    }
 
     if(pesquisa) {
       //const regexPalavras = /\b\w*\b/ig
@@ -123,8 +144,20 @@ class App extends Component {
         //produto.nome.search(/${pesquisa}/gi))
       })
     }
+    
 
-    console.log(produtosFiltrados)
+    // if(ordem === 'recomendados') {
+    //   produtosFiltrados = produtosFiltrados.sort(() => Math.random() - 0.5)
+    // } else 
+    if(ordem === 'crescente') {
+      produtosFiltrados = produtosFiltrados.sort((itemA, itemB) => 
+        itemA.valor - itemB.valor
+      )
+    } else if (ordem === 'decrescente'){
+      produtosFiltrados = produtosFiltrados.sort((itemA, itemB) => 
+        itemB.valor - itemA.valor
+      )
+    }
 
     const produtosNoCarrinho = this.state.carrinho.map(carrinho =>
       ({
@@ -133,15 +166,18 @@ class App extends Component {
       })
     )
 
-    //console.table(produtosNoCarrinho)
-    
-
     return (
       <Container>
+        <Button color='primary' variant='contained'>Click me</Button>
         <Header />
-        <Categorias atualizarCategoria={this.atualizarCategoria}/>
-        <Pesquisa atualizar={this.controlarInput} />
-        <Filtro atualizar={this.controlarInput} />
+        <Categorias atualizar={this.atualizarCategoria}/>
+        <Pesquisa valor={this.pesquisa} atualizar={this.controlarInput} />
+        <Filtro atualizar={this.controlarInput}
+          valorMin={this.state.valorMin}
+          valorMax={this.state.valorMax}
+          ordem={this.state.ordem}
+          limpa={this.limpaPesquisa}
+         />
         <Produtos 
           produtos={produtosFiltrados}
           adicionarProduto={this.adicionarItemCarrinho}

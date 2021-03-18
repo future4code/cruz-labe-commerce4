@@ -5,7 +5,12 @@ export class Pesquisa extends Component {
   render() {
     return (
       <Container>
-        <CampoPesquisa name='pesquisa' onChange={this.props.atualizar} />
+        <CampoPesquisa
+          name='pesquisa'
+          value={this.props.valor}
+          onChange={this.props.atualizar}
+          placeholder='Pesquisar produtos...'
+        />
       </Container>
       
     )
