@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import styled from 'styled-components'
     
-class Header extends Component {
+export class Header extends Component {
   render() {
     return (
       <Container>
@@ -20,5 +20,3 @@ const Container= styled.div`
 const Title = styled.div`
   font-size: 4rem;
 `
-
-export default Header

@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import styled from 'styled-components'
 
-class CarrinhoItem extends Component{
+export class CarrinhoItem extends Component{
     render() {
       const {nome = 'nome', quantidade = 1, valor = 100} = this.props
         return(
@@ -11,8 +11,6 @@ class CarrinhoItem extends Component{
         )
     }
 }
-
-export default CarrinhoItem
 
 const ItemContainer = styled.div`
   display: flex;

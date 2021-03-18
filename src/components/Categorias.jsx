@@ -1,15 +1,16 @@
 import React, { Component } from 'react'
 import styled from 'styled-components'
     
-class Categorias extends Component {
+export class Categorias extends Component {
   render() {
+    const categorias = [
+      'Todas Categorias', 'Naves', 'Foguetes', 'Ônibus Espacial'
+    ]
+
     return (
       <Container>
         <List>
-          <Item>Todas Categorias</Item>
-          <Item>Naves</Item>
-          <Item>Foguetes</Item>
-          <Item>Ônibus Espaciais</Item>
+          {categorias.map(item => <Item key={item}>{item}</Item>)}
         </List>
       </Container>
       
@@ -27,5 +28,3 @@ const List = styled.ul`
 
 const Item = styled.li`
 `
-
-export default Categorias

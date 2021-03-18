@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import styled from 'styled-components'
-class ProdutorCard extends Component {
+
+export class ProdutoCard extends Component {
     render() {
         return (
 
@@ -9,14 +10,15 @@ class ProdutorCard extends Component {
                 <p>Falcon 9</p>
                 <p>Foguete maneiro!</p>
                 <p>R$1300,00 </p>
-                <ButtonCardContainer>Adicionar ao carrinho</ButtonCardContainer>
+                <ButtonCardContainer
+                onClick={() => this.props.adicionarProduto(1)}>
+                  Adicionar ao carrinho
+              </ButtonCardContainer>
             </ProdutoCardContainer>
             // console.log("")
         )
     }
 }
-
-export default ProdutorCard
 
 const ProdutoCardContainer = styled.div`
 width: 200px;

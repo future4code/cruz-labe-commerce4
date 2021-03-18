@@ -1,35 +1,38 @@
 import React, { Component } from 'react'
 import styled from 'styled-components'
 
-import CarrinhoItem from './CarrinhoItem'
+import { CarrinhoItem } from './CarrinhoItem'
 
-class Carrinho extends Component{
+export class Carrinho extends Component{
+  
+  //se vier produtos: [1, 1, 2]
+  
 
 
-    render() {
+  render() {
 
-      const produtos = this.props.produtos.map(produto => {
-        return (
-          <CarrinhoItem
-          nome={produto.nome}
-          quantidade={produto.quantidade}
-          valor={produto.valor}
-          />
-        )
-      })
-
-      const total = this.props.produtos.reduce((soma, produto) => soma + produto.valor, 0)
-
-      return(
-          <Container>
-            {produtos}
-            {total}
-          </Container>
+    const produtos = this.props.produtos.map(produto => {
+      return (
+        <CarrinhoItem
+        key={produto.id}
+        nome={produto.nome}
+        quantidade={produto.quantidade}
+        valor={produto.valor}
+        />
       )
-    }
-}
+    })
 
-export default Carrinho
+    const total = this.props.produtos.reduce((soma, produto) => 
+      soma + produto.valor * produto.quantidade, 0)
+
+    return(
+        <Container>
+          {produtos}
+          {total}
+        </Container>
+    )
+  }
+}
 
 const Container = styled.div`
   flex-basis: 20%;
