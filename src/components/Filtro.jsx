@@ -7,12 +7,12 @@ export class Filtro extends Component {
       <Container>
           <Title>Filtrar Pesquisas</Title>
           <h2>Preço</h2>
-          <input type="range" name="valorMin" id="min" min="0" max="100"/>
+          <input onChange={this.props.atualizar} type="range" name="valorMin" id="min" min="0" max="100"/>
           <label htmlFor="min">Minimo</label>
-          <input type="range" name="valorMax" id="max" min="101" max="1000"/>
+          <input onChange={this.props.atualizar} type="range" name="valorMax" id="max" min="101" max="1000"/>
           <label htmlFor="min">Máximo</label>
           <h2>Ordem</h2>
-          <select name="ordem">
+          <select onChange={this.props.atualizar} name="ordem">
           <option value="crescente">Crescente</option>
           <option value="decrescente">Decrescente</option>
           </select>

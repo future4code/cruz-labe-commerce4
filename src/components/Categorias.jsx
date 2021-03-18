@@ -6,11 +6,11 @@ export class Categorias extends Component {
     const categorias = [
       'Todas Categorias', 'Naves', 'Foguetes', 'Ônibus Espacial'
     ]
-
+    
     return (
-      <Container>
+      <Container >
         <List>
-          {categorias.map(item => <Item key={item}>{item}</Item>)}
+          {categorias.map(item => <Item key={item}><a href="javascript:void(0)" onClick={this.props.atualizarCategoria}>{item}</a></Item>)}
         </List>
       </Container>
       
@@ -27,4 +27,5 @@ const List = styled.ul`
 `
 
 const Item = styled.li`
+  text-decoration: none;
 `

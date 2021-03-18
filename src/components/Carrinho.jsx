@@ -15,9 +15,11 @@ export class Carrinho extends Component{
       return (
         <CarrinhoItem
         key={produto.id}
+        id={produto.id}
         nome={produto.nome}
         quantidade={produto.quantidade}
         valor={produto.valor}
+        excluir={this.props.excluir}
         />
       )
     })
@@ -29,6 +31,7 @@ export class Carrinho extends Component{
         <Container>
           {produtos}
           {total}
+          <button onClick={this.props.limpar}>Limpar Tudo</button>
         </Container>
     )
   }
