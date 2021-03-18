@@ -1,4 +1,4 @@
-const produtos = [
+export const listaProdutos = [
   {
     id: 1,
     nome: 'Falcon One',
@@ -70,5 +70,3 @@ const produtos = [
     descricao: 'Foguete maneiro'
   },
 ]
-
-export default produtos

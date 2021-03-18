@@ -1,0 +1,6 @@
+export * from './Carrinho'
+export * from './Categorias'
+export * from './Filtro'
+export * from './Header'
+export * from './Pesquisa'
+export * from './Produtos'
