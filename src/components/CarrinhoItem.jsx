@@ -3,10 +3,14 @@ import styled from 'styled-components'
 
 export class CarrinhoItem extends Component{
     render() {
-      const {nome = 'nome', quantidade = 1, valor = 100} = this.props
+      const {id, nome = 'nome', quantidade = 1, valor = 100} = this.props
         return(
             <ItemContainer>
               <p>{nome} {quantidade} {valor}</p>
+              <button
+                onClick={() => this.props.excluir(id)}>
+                  Remover
+              </button>
             </ItemContainer>
         )
     }

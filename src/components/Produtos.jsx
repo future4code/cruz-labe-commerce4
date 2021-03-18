@@ -2,19 +2,27 @@ import React, { Component } from 'react'
 import styled from 'styled-components'
 import { ProdutoCard } from './ProdutoCard'
 
-export class Produtos extends Component{
+/// recebe a props produtos = lista de produtos
+// this.props.produtos[0].nome = [ {nome: 'falcon1' valor: 1000}, {nome: valor: }]
+export class Produtos extends Component {
     render() {
-        return(
-            <ProdutosContainer>
+        const produtos = this.props.produtos.map((produto) => {
+            return (
                 <ProdutoCard
-                produto='objeto com dados do produto'
-                key={1}
-                adicionarProduto={this.props.adicionarProduto} />
-                <ProdutoCard key={2}/>
-                <ProdutoCard key={3}/>
-                <ProdutoCard key={4}/>
-                <ProdutoCard key={5}/>
-                <ProdutoCard key={6}/>
+                    id = {produto.id}
+                    imagem ={produto.imagem}
+                    nome={produto.nome}
+                    valor={produto.valor}
+                    descricao = {produto.descricao}
+                    key={produto.id}
+                    adicionarProduto={this.props.adicionarProduto}
+                />
+            )
+        })
+
+        return (
+            <ProdutosContainer>
+                {produtos}
             </ProdutosContainer>
         )
     }

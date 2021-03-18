@@ -13,22 +13,25 @@ class App extends Component {
     ordem: 'crescente',
     pesquisa: '',
     // itens no carrinho tem apenas ID e quantidade para pegar na listaProdutos
-    carrinho: [
-      {
-        id: 1,
-        quantidade: 2
-      },
-      { id: 3,
-        quantidade: 4
-      }
-    ]
+    carrinho: []
+  }
+  
+  componentDidMount(){
+    //primeiro carregamento, pega os dados gravados do carrinho
+    const carrinhoSalvo = JSON.parse(localStorage.getItem('carrinho'))
+    
+    carrinhoSalvo && this.setState({ carrinho: carrinhoSalvo })
+    
   }
   
   componentDidUpdate() {
-    const {valorMin, valorMax, ordem, pesquisa} = this.state
-    console.table({valorMin, valorMax, ordem, pesquisa})
+    const {valorMin, valorMax, ordem, pesquisa, categoria} = this.state
+
+    console.table({valorMin, valorMax, ordem, pesquisa, categoria})
   }
-  
+
+  componentWillUnmount(){}
+
   // Izi control, funcao para controlar todos os inputs, jsx deve ter name=state
   controlarInput = e => {
     const {name, value} = e.target
@@ -54,6 +57,7 @@ class App extends Component {
     //console.table(novoCarrinho)
 
     this.setState({ carrinho: novoCarrinho })
+    localStorage.setItem('carrinho', JSON.stringify(novoCarrinho))
   }
   
   // Verifica se o produto ja esta incluso no carrinho
@@ -67,9 +71,29 @@ class App extends Component {
       return 
     }
     const novoCarrinho = [...this.state.carrinho]
-    novoCarrinho.splice(this.produtoJaTemNoCarrinho(id), 1)
+    
+    const posicaoNoCarrinho = this.produtoJaTemNoCarrinho(id)
+    
+    if (novoCarrinho[posicaoNoCarrinho].quantidade === 1) {
+      novoCarrinho.splice(this.produtoJaTemNoCarrinho(id), 1)
+    } else {
+      novoCarrinho[posicaoNoCarrinho].quantidade--
+    }
+    
     this.setState({ carrinho: novoCarrinho})
+    localStorage.setItem('carrinho', JSON.stringify(novoCarrinho))
   }
+  
+  limparCarrinho = () => {
+    this.setState({ carrinho: [] })
+    localStorage.removeItem('carrinho')
+  }
+
+  atualizarCategoria = event => {
+   event.preventDefault()
+   this.setState({ categoria: event.target.innerText })
+  }
+    
 
   render () {
     let {valorMin, valorMax, ordem, pesquisa} = this.state
@@ -82,13 +106,25 @@ class App extends Component {
         produto.valor > valorMin && produto.valor < valorMax
       )
     }
-    
-    if(pesquisa) {
-      const regexPalavras = /\b\w*\b/ig
-      const palavras = pesquisa.match(regexPalavras)
-      console.log(palavras)
 
+    // if(categoria) {
+
+    // }
+
+    if(pesquisa) {
+      //const regexPalavras = /\b\w*\b/ig
+      //const palavras = pesquisa.match(regexPalavras)
+      //console.log(pesquisa)
+      produtosFiltrados = produtosFiltrados.filter(produto => {
+        const palavras = new RegExp(`/${pesquisa}/gi`)
+        //console.log({palavras})
+        //return produto.nome.includes(pesquisa)
+        return produto.nome.toLowerCase().includes(pesquisa.toLowerCase())
+        //produto.nome.search(/${pesquisa}/gi))
+      })
     }
+
+    console.log(produtosFiltrados)
 
     const produtosNoCarrinho = this.state.carrinho.map(carrinho =>
       ({
@@ -97,16 +133,24 @@ class App extends Component {
       })
     )
 
-    console.table(produtosNoCarrinho)
+    //console.table(produtosNoCarrinho)
+    
 
     return (
       <Container>
         <Header />
-        <Categorias />
+        <Categorias atualizarCategoria={this.atualizarCategoria}/>
         <Pesquisa atualizar={this.controlarInput} />
         <Filtro atualizar={this.controlarInput} />
-        <Produtos adicionarProduto={this.adicionarItemCarrinho} />
-        <Carrinho produtos={produtosNoCarrinho}/>
+        <Produtos 
+          produtos={produtosFiltrados}
+          adicionarProduto={this.adicionarItemCarrinho}
+        />
+        <Carrinho
+        produtos={produtosNoCarrinho}
+        excluir={this.removerItemCarrinho}
+        limpar={this.limparCarrinho}
+        />
       </Container>
     );
   }
