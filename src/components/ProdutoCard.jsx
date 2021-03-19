@@ -8,6 +8,7 @@ import CardContent from '@material-ui/core/CardContent';
 import CardMedia from '@material-ui/core/CardMedia';
 import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
+import {Bitcoin} from '@styled-icons/boxicons-regular/Bitcoin'
 // import { listaProdutos } from './assets/json'
 
 
@@ -21,7 +22,7 @@ export class ProdutoCard extends Component {
           <ImageCardContainer src={this.props.imagem} alt="" />
           <Title gutterBottom variant="h5" component="h2">{this.props.nome}</Title>
           <Typography variant="body2" color="textSecondary" component="p">{this.props.descricao}</Typography>
-          <Typography variant="body2" color="textPrimary" component="p">{this.props.valor} </Typography>
+          <Typography variant="body2" color="textPrimary" component="p"><Btc/>{this.props.valor} </Typography>
           {/* {this.props.nome.split('').reverse().join('')} */}
         </CardActionArea>
         <CardActions>
@@ -34,7 +35,9 @@ export class ProdutoCard extends Component {
     )
   }
 }
-
+const Btc = styled(Bitcoin)`
+background-color:gold;
+width:24px`
 const Title = styled(Typography)`
 /* margin-top:118px; */
 color:blue;
