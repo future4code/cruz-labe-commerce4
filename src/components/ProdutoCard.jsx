@@ -18,7 +18,7 @@ export class ProdutoCard extends Component {
         <CardActionArea>
           <ImageCardContainer src={this.props.imagem} alt="" />
           <Title gutterBottom variant="h5" component="h2">{this.props.nome}</Title>
-          <Typography variant="body2" color="textSecondary" component="p">{this.props.descricao}</Typography>
+          <CardDescricao variant="body2" color="textSecondary" component="p">{this.props.descricao}</CardDescricao>
           <CardPreco  variant="body2" color="textPrimary" component="p"><Btc size="44" /> {this.props.valor} </CardPreco>
         </CardActionArea>
         <CardActions>
@@ -44,7 +44,9 @@ const Btc = styled(Bitcoin)`
 color:gold;
 width:24px
 `
-
+const CardDescricao = styled(Typography)`
+color:grey;
+`
 const Title = styled(Typography)`
 color:blue;
 `
