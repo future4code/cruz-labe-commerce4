@@ -1,11 +1,12 @@
 import React, { Component } from 'react'
 import styled from 'styled-components'
+import Typography from '@material-ui/core/Typography'
     
 export class Header extends Component {
   render() {
     return (
       <Container>
-        <Title>Lab Commerce</Title>
+        <Typography variant='h2'>Lab Commerce</Typography>
       </Container>
     )
   }
@@ -19,4 +20,5 @@ const Container= styled.div`
 
 const Title = styled.div`
   font-size: 4rem;
+  color: tomato;
 `

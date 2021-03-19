@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import styled from 'styled-components'
+import styled, { createGlobalStyle } from 'styled-components'
 import { listaProdutos } from './assets/json'
 import { numeroEhValido, pegarProdutoPeloID } from './utils'
 import {
@@ -7,6 +7,22 @@ import {
 } from './components'
 //import Button from '@material-ui/core/Button'
 import { Button } from '@material-ui/core'
+
+const GlobalStyle = createGlobalStyle`
+  * {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    box-sizing: border-box;
+    color: white;
+    font-size: 1rem;
+    font-family: Roboto, sans-serif;
+  }
+
+  body {
+    background: #212121;
+  }
+`
 
 class App extends Component {
   state = {
@@ -168,6 +184,7 @@ class App extends Component {
 
     return (
       <Container>
+        <GlobalStyle />
         <Button color='primary' variant='contained'>Click me</Button>
         <Header />
         <Categorias atualizar={this.atualizarCategoria}/>
@@ -201,7 +218,7 @@ const Container = styled.div`
   flex-flow: row wrap;
 
   margin: 0 auto;
-  background-color: aqua;
+  //background-color: #424242;
 
 `
 
