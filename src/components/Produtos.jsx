@@ -34,4 +34,5 @@ margin: auto;
 flex-basis: 50%;
 flex-wrap:wrap;
 justify-content:space-around;
+background-color:rgba(66,66,66,255);
 `

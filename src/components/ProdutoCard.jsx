@@ -1,32 +1,49 @@
 import React, { Component } from 'react'
 import styled from 'styled-components'
-
+import { makeStyles } from '@material-ui/core/styles';
+import Card from '@material-ui/core/Card';
+import CardActionArea from '@material-ui/core/CardActionArea';
+import CardActions from '@material-ui/core/CardActions';
+import CardContent from '@material-ui/core/CardContent';
+import CardMedia from '@material-ui/core/CardMedia';
+import Button from '@material-ui/core/Button';
+import Typography from '@material-ui/core/Typography';
+import {Bitcoin} from '@styled-icons/boxicons-regular/Bitcoin'
 // import { listaProdutos } from './assets/json'
-import Button from '@material-ui/core/Button'
 
 
 
 export class ProdutoCard extends Component {
-    render() {
+  render() {
 
-        return (
-            <ProdutoCardContainer>
-                <div>
-                <ImageCardContainer src={this.props.imagem} alt="" />
-                <h3>{this.props.nome}</h3>
-                <p>{this.props.descricao}</p>
-                <p>{this.props.valor} </p>
-                {/* {this.props.nome.split('').reverse().join('')} */}
-                </div>
-                <Button variant="contained" color="primary" size="small"
-                onClick={() => this.props.adicionarProduto(this.props.id)}>
-                  Adicionar ao carrinho
+    return (
+      <ProdutoCardContainer>
+        <CardActionArea>
+          <ImageCardContainer src={this.props.imagem} alt="" />
+          <Title gutterBottom variant="h5" component="h2">{this.props.nome}</Title>
+          <Typography variant="body2" color="textSecondary" component="p">{this.props.descricao}</Typography>
+          <Typography variant="body2" color="textPrimary" component="p"><Btc/>{this.props.valor} </Typography>
+          {/* {this.props.nome.split('').reverse().join('')} */}
+        </CardActionArea>
+        <CardActions>
+          <Button variant="contained" color="primary" size="small"
+            onClick={() => this.props.adicionarProduto(this.props.id)}>
+            Adicionar ao carrinho
               </Button>
-            </ProdutoCardContainer>
-        )
-    }
+        </CardActions>
+      </ProdutoCardContainer>
+    )
+  }
 }
+const Btc = styled(Bitcoin)`
+background-color:gold;
+width:24px`
+const Title = styled(Typography)`
+/* margin-top:118px; */
+color:blue;
 
+
+`
 const MeuBotao = styled(Button)`
 * {
   background-color:green
@@ -34,17 +51,19 @@ const MeuBotao = styled(Button)`
 span:first-of-type {color: red;z-index:2;}
 `
 
+
 const ProdutoCardContainer = styled.div`
 width: 200px;
-/* background-color:yellow; */
+background-color:white;
 border: 1px solid black;
 text-align: center;
 margin-bottom: 16px;
 display:flex;
 flex-direction: column;
+border-radius:4px;
 
 `
-const ImageCardContainer =  styled.img`
+const ImageCardContainer = styled.img`
 width:100%;
 height:110px;
 `
