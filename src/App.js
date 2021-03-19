@@ -1,12 +1,11 @@
 import React, { Component } from 'react';
-import styled, { createGlobalStyle } from 'styled-components'
+import styled, { createGlobalStyle, ThemeProvider } from 'styled-components'
+import { createMuiTheme } from '@material-ui/core/styles'
 import { listaProdutos } from './assets/json'
 import { numeroEhValido, pegarProdutoPeloID } from './utils'
 import {
   Header, Categorias, Pesquisa, Filtro, Produtos, Carrinho
 } from './components'
-//import Button from '@material-ui/core/Button'
-import { Button } from '@material-ui/core'
 
 const GlobalStyle = createGlobalStyle`
   * {
@@ -23,6 +22,12 @@ const GlobalStyle = createGlobalStyle`
     background: #212121;
   }
 `
+
+const darkTheme = createMuiTheme({
+  pallete: {
+    type: 'dark',
+  }
+})
 
 class App extends Component {
   state = {
@@ -183,9 +188,9 @@ class App extends Component {
     )
 
     return (
+      <ThemeProvider theme={darkTheme}>
       <Container>
         <GlobalStyle />
-        <Button color='primary' variant='contained'>Click me</Button>
         <Header />
         <Categorias atualizar={this.atualizarCategoria}/>
         <Pesquisa valor={this.pesquisa} atualizar={this.controlarInput} />
@@ -205,6 +210,7 @@ class App extends Component {
         limpar={this.limparCarrinho}
         />
       </Container>
+      </ThemeProvider>
     );
   }
 }
@@ -218,8 +224,6 @@ const Container = styled.div`
   flex-flow: row wrap;
 
   margin: 0 auto;
-  //background-color: #424242;
-
 `
 
 export default App;

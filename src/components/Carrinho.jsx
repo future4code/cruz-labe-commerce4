@@ -26,11 +26,16 @@ export class Carrinho extends Component{
 
     const total = this.props.produtos.reduce((soma, produto) => 
       soma + produto.valor * produto.quantidade, 0)
+    
+    const quantidade = this.props.produtos.reduce((quantidade, produto) => 
+      quantidade + produto.quantidade, 0
+    )
 
     return(
         <Container>
           {produtos}
-          {total}
+          <p>Itens: {quantidade}</p>
+          <p>Total: {total}</p>
           <button onClick={this.props.limpar}>Limpar Tudo</button>
         </Container>
     )
