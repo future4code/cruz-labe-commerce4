@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import styled, { createGlobalStyle } from 'styled-components'
 import { createMuiTheme, MuiThemeProvider } from '@material-ui/core/styles'
 import CssBaseline from '@material-ui/core/CssBaseline'
-import { listaProdutos } from './assets/json'
+import { listaProdutos, listaCategorias } from './assets/json'
 import { numeroEhValido, pegarProdutoPeloID } from './utils'
 import {
   Header, Categorias, Pesquisa, Filtro, Produtos, Carrinho
@@ -26,7 +26,7 @@ class App extends Component {
     valorMax: 1000,
     ordem: 'recomendados',
     pesquisa: '',
-    categoria: 'todas categorias',
+    categoria: 0, //Categoria 0 = todas, 1 em diante para cada categoria
     // itens no carrinho tem apenas ID e quantidade para pegar na listaProdutos
     carrinho: []
   }
@@ -36,16 +36,7 @@ class App extends Component {
     const carrinhoSalvo = JSON.parse(localStorage.getItem('carrinho'))
     
     carrinhoSalvo && this.setState({ carrinho: carrinhoSalvo })
-    
   }
-  
-  componentDidUpdate() {
-    const {valorMin, valorMax, ordem, pesquisa, categoria} = this.state
-
-    console.table({valorMin, valorMax, ordem, pesquisa, categoria})
-  }
-
-  componentWillUnmount(){}
 
   // Izi control, funcao para controlar todos os inputs, jsx deve ter name=state
   controlarInput = e => {
@@ -121,10 +112,7 @@ class App extends Component {
     localStorage.removeItem('carrinho')
   }
 
-  atualizarCategoria = e => {
-    e.preventDefault()
-    this.setState({ categoria: e.target.innerText})
-  }
+  atualizarCategoria = (e, valor) => this.setState({ categoria: valor})
   
   render () {
     let {valorMin, valorMax, ordem, pesquisa, categoria} = this.state
@@ -138,9 +126,9 @@ class App extends Component {
       )
     }
 
-    if(categoria !== 'todas categorias') {
+    if(categoria) {
       produtosFiltrados = produtosFiltrados.filter(produto =>
-        produto.categoria.toLowerCase() === categoria
+        produto.categoria.toLowerCase() === listaCategorias[this.state.categoria]
       )
     }
 
@@ -184,7 +172,10 @@ class App extends Component {
       <GlobalStyle />
       <Container>
         <Header />
-        <Categorias atualizar={this.atualizarCategoria}/>
+        <Categorias 
+          categorias={listaCategorias}
+          categoriaAtual={this.state.categoria}
+          atualizar={this.atualizarCategoria}/>
         <Pesquisa valor={this.pesquisa} atualizar={this.controlarInput} />
         <Filtro atualizar={this.controlarInput}
           valorMin={this.state.valorMin}

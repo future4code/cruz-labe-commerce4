@@ -6,26 +6,17 @@ import Tabs from '@material-ui/core/Tabs';
 import Tab from '@material-ui/core/Tab';
     
 export class Categorias extends Component {
-  state = { categoriaAtual: 'todas categorias'}
-  
-  atualizarCategoria = (e, c) => {
-    this.setState({ categoriaAtual: c })
-  }
-
   render() {
-    const categorias = [
-      'todas categorias', 'naves', 'foguetes', 'ônibus espacial'
-    ]
     
     return (
       <Container >
         <Paper square>
             <Tabs
               name='categoria'
-              value={this.state.categoriaAtual}
+              value={this.props.categoriaAtual}
               centered
-              onChange={this.atualizarCategoria}>
-                {categorias.map(c => <Tab label={c}/>)}
+              onChange={this.props.atualizar}>
+                {this.props.categorias.map((c,i) => <Tab label={c} key={i}/>)}
             </Tabs>
         </Paper>
       </Container>
