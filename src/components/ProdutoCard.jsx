@@ -8,60 +8,54 @@ import CardContent from '@material-ui/core/CardContent';
 import CardMedia from '@material-ui/core/CardMedia';
 import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
-import {Bitcoin} from '@styled-icons/boxicons-logos/Bitcoin'
-import {CartAdd} from '@styled-icons/boxicons-solid/CartAdd'
+import { Bitcoin } from '@styled-icons/fa-brands/Bitcoin'
+import { CartAdd } from '@styled-icons/boxicons-solid/CartAdd'
 import { spacing } from '@material-ui/system';
 // import { listaProdutos } from './assets/json'
-
 
 
 export class ProdutoCard extends Component {
 
   render() {
-    
+
     return (
-      
+
       <ProdutoCardContainer>
         <CardActionArea>
           <ImageCardContainer src={this.props.imagem} alt="" />
           <Title gutterBottom variant="h5" component="h2">{this.props.nome}</Title>
           <Typography variant="body2" color="textSecondary" component="p">{this.props.descricao}</Typography>
-          <CardPreco marginTop={3} variant="body2" color="textPrimary" component="p"><Btc/> {this.props.valor} </CardPreco>
+          <CardPreco  variant="body2" color="textPrimary" component="p"><Btc size="44" /> {this.props.valor} </CardPreco>
         </CardActionArea>
-        {/* <CardActions> */}
-          <MeuBotao variant="contained" color="primary" 
+        <CardActions>
+          <MeuBotao   variant="contained" color="primary"
           size="small" startIcon={<Carrinho />}
             onClick={() => this.props.adicionarProduto(this.props.id)}>
             Adicionar ao carrinho
               </MeuBotao>
-        {/* </CardActions> */}
-      </ProdutoCardContainer>
+        </CardActions>
+      </ProdutoCardContainer >
     )
   }
 }
 
 
-// const theme = {
-//   spacing: 8,
-// }
+const theme = {
+  spacing: 8
+}
 
 const CardPreco = styled(Typography)`
-/* margin: 12px 0; */
-/* background-color:red; */
-/* font-size:24px; */
-
-
 `
 const Carrinho = styled(CartAdd)`
 width: 32px;`
 
-
 const Btc = styled(Bitcoin)`
 background-color:black;
+color:red;
 width:24px`
+
 const Title = styled(Typography)`
 color:blue;
-
 
 `
 
@@ -71,7 +65,6 @@ span:first-of-type {
 font-size:14px;
 } 
 `
-
 
 const ProdutoCardContainer = styled.div`
 width: 200px;
