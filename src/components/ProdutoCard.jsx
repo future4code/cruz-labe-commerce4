@@ -8,47 +8,68 @@ import CardContent from '@material-ui/core/CardContent';
 import CardMedia from '@material-ui/core/CardMedia';
 import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
-import {Bitcoin} from '@styled-icons/boxicons-regular/Bitcoin'
+import {Bitcoin} from '@styled-icons/boxicons-logos/Bitcoin'
+import {CartAdd} from '@styled-icons/boxicons-solid/CartAdd'
+import { spacing } from '@material-ui/system';
 // import { listaProdutos } from './assets/json'
 
 
 
 export class ProdutoCard extends Component {
-  render() {
 
+  render() {
+    
     return (
+      
       <ProdutoCardContainer>
         <CardActionArea>
           <ImageCardContainer src={this.props.imagem} alt="" />
           <Title gutterBottom variant="h5" component="h2">{this.props.nome}</Title>
           <Typography variant="body2" color="textSecondary" component="p">{this.props.descricao}</Typography>
-          <Typography variant="body2" color="textPrimary" component="p"><Btc/>{this.props.valor} </Typography>
-          {/* {this.props.nome.split('').reverse().join('')} */}
+          <CardPreco marginTop={3} variant="body2" color="textPrimary" component="p"><Btc/> {this.props.valor} </CardPreco>
         </CardActionArea>
-        <CardActions>
-          <Button variant="contained" color="primary" size="small"
+        {/* <CardActions> */}
+          <MeuBotao variant="contained" color="primary" 
+          size="small" startIcon={<Carrinho />}
             onClick={() => this.props.adicionarProduto(this.props.id)}>
             Adicionar ao carrinho
-              </Button>
-        </CardActions>
+              </MeuBotao>
+        {/* </CardActions> */}
       </ProdutoCardContainer>
     )
   }
 }
+
+
+// const theme = {
+//   spacing: 8,
+// }
+
+const CardPreco = styled(Typography)`
+/* margin: 12px 0; */
+/* background-color:red; */
+/* font-size:24px; */
+
+
+`
+const Carrinho = styled(CartAdd)`
+width: 32px;`
+
+
 const Btc = styled(Bitcoin)`
-background-color:gold;
+background-color:black;
 width:24px`
 const Title = styled(Typography)`
-/* margin-top:118px; */
 color:blue;
 
 
 `
+
 const MeuBotao = styled(Button)`
-* {
-  background-color:green
-}
-span:first-of-type {color: red;z-index:2;}
+span:first-of-type {
+  /* color: red;z-index:2;  */
+font-size:14px;
+} 
 `
 
 
