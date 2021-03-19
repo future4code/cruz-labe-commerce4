@@ -17,8 +17,3 @@ const Container= styled.div`
   justify-content: center;
   flex-basis: 100%;
 `
-
-const Title = styled.div`
-  font-size: 4rem;
-  color: tomato;
-`

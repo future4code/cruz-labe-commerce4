@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
-import styled, { createGlobalStyle, ThemeProvider } from 'styled-components'
-import { createMuiTheme } from '@material-ui/core/styles'
+import styled, { createGlobalStyle } from 'styled-components'
+import { createMuiTheme, MuiThemeProvider } from '@material-ui/core/styles'
+import CssBaseline from '@material-ui/core/CssBaseline'
 import { listaProdutos } from './assets/json'
 import { numeroEhValido, pegarProdutoPeloID } from './utils'
 import {
@@ -8,23 +9,13 @@ import {
 } from './components'
 
 const GlobalStyle = createGlobalStyle`
-  * {
-    margin: 0;
-    padding: 0;
-    list-style: none;
-    box-sizing: border-box;
-    color: white;
-    font-size: 1rem;
-    font-family: Roboto, sans-serif;
-  }
-
   body {
     background: #212121;
   }
 `
 
 const darkTheme = createMuiTheme({
-  pallete: {
+  palette: {
     type: 'dark',
   }
 })
@@ -188,9 +179,10 @@ class App extends Component {
     )
 
     return (
-      <ThemeProvider theme={darkTheme}>
+      <MuiThemeProvider theme={darkTheme}>
+      <CssBaseline />
+      <GlobalStyle />
       <Container>
-        <GlobalStyle />
         <Header />
         <Categorias atualizar={this.atualizarCategoria}/>
         <Pesquisa valor={this.pesquisa} atualizar={this.controlarInput} />
@@ -210,7 +202,7 @@ class App extends Component {
         limpar={this.limparCarrinho}
         />
       </Container>
-      </ThemeProvider>
+      </MuiThemeProvider>
     );
   }
 }

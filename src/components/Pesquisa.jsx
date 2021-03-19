@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import styled from 'styled-components'
+import TextField from '@material-ui/core/TextField'
     
 export class Pesquisa extends Component {
   render() {
@@ -23,7 +24,7 @@ const Container = styled.div`
   display: flex;
   justify-content: center;
 `
-const CampoPesquisa = styled.input.attrs({ type: 'search' }) `
+const CampoPesquisa = styled(TextField).attrs({ type: 'search' }) `
   width: 50%;
   height: 80px;
 
