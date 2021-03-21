@@ -65,7 +65,7 @@ class Home extends Component {
   
   render () {
     let produtos = new objetoProduto(listaProdutos, listaCategorias)
-    filtrarProdutos(this.state, produtos)
+    filtrarProdutos.call(this, produtos)
     const produtosNoCarrinho = this.montarCarrinho(produtos)   
 
     return (

@@ -26,8 +26,8 @@ export class objetoProduto {
   ordenar = callback => this.filtrados = this.filtrados.sort(callback)
 }
 
-export const filtrarProdutos = (state, produtos) => {
-  let {valorMin, valorMax, ordem, pesquisa, categoria} = state
+export function filtrarProdutos(produtos) {
+  let {valorMin, valorMax, ordem, pesquisa, categoria} = this.state
 
   if (valorMin || valorMax) {
     valorMax = valorMax || Infinity
