@@ -1,13 +1,17 @@
 import React, { Component } from 'react'
 import styled from 'styled-components'
 import { ProdutoCard } from './ProdutoCard'
+import Typography from '@material-ui/core/Typography'
 
 /// recebe a props produtos = lista de produtos
 // this.props.produtos[0].nome = [ {nome: 'falcon1' valor: 1000}, {nome: valor: }]
 export class Produtos extends Component {
     render() {
-        const produtos = this.props.produtos.map((produto) => {
-            return (
+
+        let { produtos } = this.props
+        
+        if (produtos.length) {
+            produtos = produtos.map((produto) =>
                 <ProdutoCard
                     id = {produto.id}
                     imagem ={produto.imagem}
@@ -18,7 +22,9 @@ export class Produtos extends Component {
                     adicionarProduto={this.props.adicionarProduto}
                 />
             )
-        })
+        } else {
+          produtos = <Typography>Nenhum item com esse filtro...</Typography>
+        }
 
         return (
             <ProdutosContainer>
@@ -30,9 +36,7 @@ export class Produtos extends Component {
 
 const ProdutosContainer = styled.div`
 display: flex;
-margin: auto;
-flex-basis: 50%;
-flex-wrap:wrap;
-justify-content:space-around;
-background-color:rgba(66,66,66,255);
+flex: 1;
+flex-wrap: wrap;
+justify-content: space-around;
 `

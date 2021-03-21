@@ -22,10 +22,14 @@ const Container = styled.div`
   flex-basis: 100%;
 
   display: flex;
-  justify-content: center;
+  justify-content: flex-start;
 `
 const CampoPesquisa = styled(TextField).attrs({ type: 'search' }) `
-  width: 50%;
-  height: 80px;
+  width: 60%;
+  margin: 20px 20px;
+
+  input {
+    height: 50px;
+  }
 
 `
