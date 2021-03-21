@@ -11,7 +11,7 @@ export class LimitadorErro extends Component {
   }
   
   render() {
-    if (this.state.hasError) {
+    if (this.state.temErro) {
       return (
         <div>
           <h1>Houston, temos um problema!</h1>
